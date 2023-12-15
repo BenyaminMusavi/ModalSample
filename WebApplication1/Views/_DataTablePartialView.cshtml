@@ -1,0 +1,40 @@
+﻿@using System.Data;
+@model DataModel;
+
+@if (Model.ItemList != null)
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    @for (int i = 1; i < Model.DataTable.Columns.Count; i++)
+                                    {
+                                        <th>@Model.DataTable.Columns[i].ColumnName</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (DataRow row in Model.DataTable.Rows)
+                                {
+                                    <tr>
+                                        @for (int i = 1; i < Model.DataTable.Columns.Count; i++)
+                                        {
+                                            <td>@row[Model.DataTable.Columns[i].ColumnName]</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
