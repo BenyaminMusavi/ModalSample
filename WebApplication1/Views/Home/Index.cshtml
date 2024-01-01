@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<script>
+@*<script>
     const fileInput = document.getElementById('file-input');
     fileInput.onchange = function () {
         const formData = new FormData();
@@ -40,7 +40,7 @@
             processData: false,
             contentType: false,
             success: function (data) {
-                console.log('Received data',data);
+                console.log('Received data', data);
                 $('#exampleModal').modal('show');
                 $('#exampleModal .modal-body').html(data);
                 // Update the content of the existing modal
@@ -49,7 +49,7 @@
             error: function (xhr, status, error) { console.log(xhr.responseText); }
         });
     };
-</script>
+</script>*@
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -60,3 +60,38 @@
         height: 400px;
     }
 </style>
+
+
+<script>
+    const fileInput = document.getElementById('file-input');
+
+    // Function to clear modal content
+    function clearModalContent() {
+        $('#exampleModal .modal-body').html('');
+        // Clear the content of the modal body
+        fileInput.value='';
+    }
+
+    fileInput.onchange = function () {
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        $.ajax({
+            url: '@Url.Action("Upload","Home")',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#exampleModal .modal-body').html(data);
+                // Update the content of the existing modal
+                $('#exampleModal').modal('show'); // Open the modal
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseText);
+            }
+        });
+    };
+    // Attach a listener to the modal's hidden event
+    $('#exampleModal').on('click', '.close-modal-btn', function () { $('#exampleModal').modal('hide'); clearModalContent(); });
+</script>

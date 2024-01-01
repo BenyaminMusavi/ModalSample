@@ -27,8 +27,36 @@
         </table>
     </div>
     <hr />
-    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+    <button type="button" class="btn btn-danger close-modal-btn" data-bs-dismiss="modal">بستن</button>
 
+
+    <script>
+        $('.close-modal-btn').on('click', function () {
+            $('#exampleModal').modal('hide');
+        });
+    </script>
+
+
+
+    @*dovom*@
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <!-- modal-lg for large size -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your table and content here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger close-modal-btn" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
 
