@@ -1,4 +1,87 @@
-﻿@using System.Data;
+﻿@model System.Data.DataTable
+@using System.Data
+
+@if (Model != null)
+{
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    @for (int i = 1; i < Model.Columns.Count; i++)
+                    {
+                        <th>@Model.Columns[i].ColumnName</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (DataRow row in Model.Rows)
+                {
+                    <tr>
+                        @for (int i = 1; i < Model.Columns.Count; i++)
+                        {
+                            <td>@row[Model.Columns[i].ColumnName]</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <hr />
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">بستن</button>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@using System.Data;
 @model DataModel;
 
 @if (Model.ItemList != null)
@@ -37,4 +120,4 @@
         </div>
     </div>
 
-}
+}*@

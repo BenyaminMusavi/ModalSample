@@ -16,22 +16,17 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
-    {
-        return View();
-    }
-
+    public ActionResult Index() { return View(); }
     [HttpPost]
-    public ActionResult Index(IFormFile file)
+    public ActionResult Upload(IFormFile file)
     {
-        if (ModelState.IsValid)
+        if (file != null && file.Length > 0)
         {
-            if (file != null && file.Length > 0)
+            if (file.FileName.EndsWith(".xls") || file.FileName.EndsWith(".xlsx"))
             {
-                if (file.FileName.EndsWith(".xls") || file.FileName.EndsWith(".xlsx"))
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+                using (Stream stream = file.OpenReadStream())
                 {
-                    Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-                    Stream stream = file.OpenReadStream();
                     IExcelDataReader reader;
                     if (file.FileName.EndsWith(".xls"))
                     {
@@ -41,30 +36,17 @@ public class HomeController : Controller
                     {
                         reader = ExcelReaderFactory.CreateOpenXmlReader(stream);
                     }
-
                     DataTable dt = CreateDataTable(reader);
-
-                    //await _ImportRepository.SaveToDatabase(dt);
-
-                    //return PartialView("_DataTablePartialView", dt);
-                    //TempData["Dt"] = dt;
-
-                    return View(dt);
-                }
-                else
-                {
-                    ModelState.AddModelError("File", "This file format is not supported");
+                    return PartialView("_DataTablePartialView", dt);
                 }
             }
-            else
-            {
-                ModelState.AddModelError("File", "Please upload your file");
-            }
-
+            else { ModelState.AddModelError("File", "This file format is not supported"); }
         }
-        return View();
-
+        else { ModelState.AddModelError("File", "Please upload your file"); }
+        // Handle validation errors
+        return BadRequest(ModelState);
     }
+
     public IActionResult Privacy()
     {
         return View();
