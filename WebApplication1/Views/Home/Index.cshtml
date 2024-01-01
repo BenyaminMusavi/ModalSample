@@ -12,7 +12,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close close-modal-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if (Model != null)
@@ -21,46 +21,15 @@
                 }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger close-modal-btn" data-bs-dismiss="modal">Close</button>
+
             </div>
         </div>
     </div>
 </div>
 
-@*<script>
-    const fileInput = document.getElementById('file-input');
-    fileInput.onchange = function () {
-        const formData = new FormData();
-        formData.append('file', fileInput.files[0]);
-        console.log('Before AJAX call');
-        $.ajax({
-            url: '@Url.Action("Upload","Home")',
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                console.log('Received data', data);
-                $('#exampleModal').modal('show');
-                $('#exampleModal .modal-body').html(data);
-                // Update the content of the existing modal
-                // Open the modal
-            },
-            error: function (xhr, status, error) { console.log(xhr.responseText); }
-        });
-    };
-</script>*@
-
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-<style>
-    .modal-content {
-        width: 200%;
-        height: 400px;
-    }
-</style>
-
 
 <script>
     const fileInput = document.getElementById('file-input');
